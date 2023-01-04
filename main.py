@@ -180,8 +180,14 @@ def CreateProject(usr_id):
     fileobject.close()
 
 def getProjects():
-
-    pass
+    file = open("data/db_projects.txt", 'r')
+    data = file.readlines()
+    file.close()
+    table = PrettyTable(['ID', 'Title', 'Description', 'Total Taregt', 'Start', 'End', 'Owner ID'])
+    for line in data:
+        list = line.split(":")
+        table.add_row(list)
+    print(table)
 
 def delProject():
     pass
