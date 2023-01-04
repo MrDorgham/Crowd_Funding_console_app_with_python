@@ -4,29 +4,33 @@ email_regx = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|
 phone_regx = re.compile(r'^(?:\+?01)?[09]\d{10,10}$')
 
 
-def editProject():
-    pass
-
-
-def SearchProject():
-    pass
-
-
-def delProject():
-    pass
-
-
-def getProjects():
-    pass
-
-
-def isValidDate():
-    pass
-
-
-def CreateProject():
-
-    pass
+def Main_Menu():
+    print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    print ('$$----------------------------------------$$')
+    print ('$$    Welcome to the Crowd Funding App    $$')
+    print ('$$----------------------------------------$$')
+    print ('$$    Press 1 to Registeration            $$')
+    print ('$$    Press 2 to Login !                  $$')
+    print ('$$    Press 0 to Exit                     $$')
+    print ('$$                                        $$')
+    print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    while True:
+        user_input = input('Enter Your selection: ')
+        try:
+            user_input = int(user_input)
+            if user_input == 1:
+                Rgstr()
+                Main_Menu()
+            elif user_input == 2:
+                Login()
+                Main_Menu()
+            elif user_input == 0:
+                print("Exit Now ........ !")
+                exit()
+            else:
+                print ("Please Choose from the Menue !")
+        except ValueError:
+                print ("Pleaes Enter a vaild Number !")
 
 
 def loginMenu(usr_id):
@@ -69,7 +73,6 @@ def loginMenu(usr_id):
                 print("Please Choose from the Menue !")
         except ValueError:
             print("Pleaes Enter a vaild Number !")
-
 
 ###########################################################################################################################
 
@@ -119,8 +122,8 @@ def isValidName(msg):
     else:
         isValidName("Enter a Valid Name: ")
     return name
-###########################################################################################################################
 
+###########################################################################################################################
 
 def Rgstr():
     ts = time.time()
@@ -144,38 +147,34 @@ def Rgstr():
     fileobject.writelines(f_name + ":" + l_name + ":" + email + ":" + passwd + ":" + phone + ":" + str(usr_id) + "\n")
     fileobject.close()
 
-
-
-
 ###########################################################################################################################
 
 
-def Main_Menu():
-    print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    print ('$$----------------------------------------$$')
-    print ('$$    Welcome to the Crowd Funding App    $$')
-    print ('$$----------------------------------------$$')
-    print ('$$    Press 1 to Registeration            $$')
-    print ('$$    Press 2 to Login !                  $$')
-    print ('$$    Press 0 to Exit                     $$')
-    print ('$$                                        $$')
-    print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    while True:
-        user_input = input('Enter Your selection: ')
-        try:
-            user_input = int(user_input)
-            if user_input == 1:
-                Rgstr()
-                Main_Menu()
-            elif user_input == 2:
-                Login()
-                Main_Menu()
-            elif user_input == 0:
-                print("Exit Now ........ !")
-                exit()
-            else:
-                print ("Please Choose from the Menue !")
-        except ValueError:
-                print ("Pleaes Enter a vaild Number !")
+def editProject():
+    pass
+
+
+def SearchProject():
+    pass
+
+
+def delProject():
+    pass
+
+
+def getProjects():
+    pass
+
+
+def isValidDate():
+    pass
+
+
+def CreateProject():
+
+    pass
+
+
+
 
 Main_Menu()
