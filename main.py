@@ -69,7 +69,7 @@ def loginMenu(usr_id):
                 SearchProject()
                 loginMenu(usr_id)
             elif user_input == 5:
-                editProject()
+                editProject(usr_id)
                 loginMenu(usr_id)
             elif user_input == 6:
                 Main_Menu()
@@ -216,13 +216,43 @@ def delProject(usr_id):
     file.close()
     if flag == False:
         print("Not Found !")
-    pass
 
 
-def editProject():
 
+def editProject(usr_id):
+    id = input("Enter id of the project you want to edit: ")
+    flag = False
+    file = open("data/db_projects.txt", 'r')
+    data = file.readlines()
+    file.close()
+    for line in data:
+        if line.split(":")[0] == id:
+            if line.split(":")[6] == usr_id:
+                print(line)
+                del data[data.index(line)]
+                title = input("Enter Project title: ")
+                details = input("Enter Project details: ")
+                taregt = input("Enter Project total taregt: ")
+                start_date = isValidDate("Enter Project start date (date format DD-MM-YYYY like): ")
+                end_date = isValidDate("Enter Project end date (date format like DD-MM-YYYY): ")
 
-    pass
+                data.append(str(id) + ":" + title + ":" + details + ":" + taregt + ":" + str(start_date) + ":" + str(end_date) + ":" + str(usr_id))
+
+                file = open("data/db_projects.txt", "a")
+                file.writelines(data)
+                file.close()
+
+                print("Project Edited !")
+                flag = True
+            else:
+                print("Sorry You can only edit Your own projects !")
+                loginMenu(usr_id)
+    file = open("data/db_projects.txt", 'w')
+    file.writelines(data)
+    file.close()
+    if flag == False:
+        print("Not Found !")
+
 
 def SearchProject():
     pass
