@@ -1,73 +1,163 @@
 import re
-
+import time, datetime
 email_regx = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 phone_regx = re.compile(r'^(?:\+?01)?[09]\d{10,10}$')
 
 
-def email_check(msg):
+def editProject():
+    pass
+
+
+def SearchProject():
+    pass
+
+
+def delProject():
+    pass
+
+
+def getProjects():
+    pass
+
+
+def isValidDate():
+    pass
+
+
+def CreateProject():
+
+    pass
+
+
+def loginMenu(usr_id):
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    print(f'$$ Welcome {mail} , You are now logged in   $$')
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    print('$$   Press 1 to View All projects            $$')
+    print('$$   Press 2 to Create New Project           $$')
+    print('$$   Press 3 to Delete a Project             $$')
+    print('$$   Press 4 to Search for a Project by date $$')
+    print('$$   Press 5 to Edit a Project               $$')
+    print('$$   Press 6 to go to the Main Menu          $$')
+    print('$$   Press 0 to Exit                         $$')
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    while True:
+        user_input = input('Enter Your selection: ')
+        try:
+            user_input = int(user_input)
+            if user_input == 1:
+                getProjects()
+                loginMenu(usr_id)
+            elif user_input == 2:
+                CreateProject()
+                loginMenu()
+            elif user_input == 3:
+                delProject()
+                loginMenu(usr_id)
+            elif user_input == 4:
+                SearchProject()
+                loginMenu(usr_id)
+            elif user_input == 5:
+                editProject()
+                loginMenu(usr_id)
+            elif user_input == 6:
+                Main_Menu()
+            elif user_input == 0:
+                print("Exit Now ........ !")
+                exit()
+            else:
+                print("Please Choose from the Menue !")
+        except ValueError:
+            print("Pleaes Enter a vaild Number !")
+
+
+###########################################################################################################################
+
+def Login():
+    global mail
+
+    mail = input("Enter Your Email: ")
+    passwd = input("Enter Your Password: ")
+    fileobject = open("data/db.txt", "r")
+
+    data = fileobject.readlines()
+    for line in data:
+
+        if mail == line.split(":")[2] and passwd == line.split(":")[3]:
+            usr_id = line.split(":")[5]
+
+            fileobject.close()
+
+            loginMenu(usr_id)
+            break
+
+    print("Wrong Email or Password !")
+    Login()
+
+###########################################################################################################################
+
+def isValidEmail(msg):
     email = input(msg)
     if re.fullmatch(email_regx, email):
         return email
     else:
-        return email_check("Enter a Valid email: ")
+        return isValidEmail("Enter a Valid email: ")
 
 
-def phone_check(msg):
+def isValidPhone(msg):
     phone = input(msg)
     if re.fullmatch(phone_regx, phone):
         return phone
     else:
-        return phone_check("Enter a Valid phone number: ")
+        return isValidPhone("Enter a Valid phone number: ")
 
 
-def name_check(msg):
+def isValidName(msg):
     name = input(msg)
     if not any(char.isdigit() for char in name):
         return name
     else:
-        name_check("Enter a Valid Name: ")
+        isValidName("Enter a Valid Name: ")
     return name
+###########################################################################################################################
 
 
-def Register():
+def Rgstr():
+    ts = time.time()
+    usr_id = int(ts)
+    f_name = isValidName("Enter Your First Name: ")
+    l_name = isValidName("Enter Your Last Name: ")
+    email = isValidEmail("Enter Your email: ")
+    passwd = input("Enter Your Password: ")
+    confirmpswd = input("Enter Your Password Again: ")
+    while confirmpswd != passwd:
+        print("Password doesnot match !")
+        passwd = input("Enter Your Password: ")
+        confirmpswd = input("Please Confirm Your Password: ")
 
-    f_name = name_check("Enter Your First Name: ")
-    l_name = name_check("Enter Your Last Name: ")
-    email = email_check("Enter Your email: ")
-
-    password = input("Enter Your Password: ")
-    confirm_password = input("Enter Your Password Again: ")
-
-    while confirm_password != password:
-        print("Passwords match !")
-        password = input("Enter Your Password: ")
-        confirm_password = input("Please Confirm Your Password: ")
-
-    phone = phone_check("Enter Your phone number: ")
+    phone = isValidPhone("Enter Your phone number: ")
 
     print("You Have Registered Successfully!")
-    print(f"Your data (Name:{f_name} {l_name} Mail:{email} Password:{password} Phone Number:{phone} ")
+    print(f"Your data (Name:{f_name} {l_name} Mail:{email} Password:{passwd} Phone Number:{phone} id:{usr_id}")
 
     fileobject = open("data/db.txt", "a")
-    fileobject.writelines(f_name + ":" + l_name + ":" + email + ":" + password + ":" + phone + "\n")
+    fileobject.writelines(f_name + ":" + l_name + ":" + email + ":" + passwd + ":" + phone + ":" + str(usr_id) + "\n")
     fileobject.close()
 
 
-    print("reg")
-    pass
-def Login():
-    print("log")
-    pass
+
+
+###########################################################################################################################
 
 
 def Main_Menu():
     print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     print ('$$----------------------------------------$$')
-    print ('$$  Welcome to the Crowd Funding Program  $$')
+    print ('$$    Welcome to the Crowd Funding App    $$')
     print ('$$----------------------------------------$$')
-    print ('$$  Press 1 to Registeration              $$')
-    print ('$$  Press 2 to Login !                    $$')
-    print ('$$  Press 0 to Exit                       $$')
+    print ('$$    Press 1 to Registeration            $$')
+    print ('$$    Press 2 to Login !                  $$')
+    print ('$$    Press 0 to Exit                     $$')
     print ('$$                                        $$')
     print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     while True:
@@ -75,7 +165,7 @@ def Main_Menu():
         try:
             user_input = int(user_input)
             if user_input == 1:
-                Register()
+                Rgstr()
                 Main_Menu()
             elif user_input == 2:
                 Login()
