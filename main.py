@@ -1,9 +1,14 @@
 import re
 import time, datetime
 from prettytable import PrettyTable
+
+
+###########################################################################################################################
+
 email_regx = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 phone_regx = re.compile(r'^(?:\+?01)?[09]\d{10,10}$')
 
+###########################################################################################################################
 
 def Main_Menu():
     print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
@@ -33,6 +38,7 @@ def Main_Menu():
         except ValueError:
                 print ("Pleaes Enter a vaild Number !")
 
+###########################################################################################################################
 
 def loginMenu(usr_id):
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
@@ -57,7 +63,7 @@ def loginMenu(usr_id):
                 CreateProject(usr_id)
                 loginMenu(usr_id)
             elif user_input == 3:
-                delProject()
+                delProject(usr_id)
                 loginMenu(usr_id)
             elif user_input == 4:
                 SearchProject()
@@ -189,11 +195,33 @@ def getProjects():
         table.add_row(list)
     print(table)
 
-def delProject():
+def delProject(usr_id):
+    id = input("Enter id of the project you want to delete: ")
+    flag = False
+    file = open("data/db_projects.txt", 'r')
+    data = file.readlines()
+    file.close()
+    for line in data:
+        if line.split(":")[0] == id:
+            if line.split(":")[6] == usr_id:
+                print(line)
+                del data[data.index(line)]
+                print("Project Deleted !")
+                flag = True
+            else:
+                print("Sorry You can only delete Your own projects !")
+                delProject(usr_id)
+    file = open("data/db_projects.txt", 'w')
+    file.writelines(data)
+    file.close()
+    if flag == False:
+        print("Not Found !")
     pass
 
 
 def editProject():
+
+
     pass
 
 def SearchProject():
