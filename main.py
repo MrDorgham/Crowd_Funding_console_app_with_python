@@ -1,5 +1,6 @@
 import re
 import time, datetime
+from prettytable import PrettyTable
 email_regx = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 phone_regx = re.compile(r'^(?:\+?01)?[09]\d{10,10}$')
 
@@ -53,8 +54,8 @@ def loginMenu(usr_id):
                 getProjects()
                 loginMenu(usr_id)
             elif user_input == 2:
-                CreateProject()
-                loginMenu()
+                CreateProject(usr_id)
+                loginMenu(usr_id)
             elif user_input == 3:
                 delProject()
                 loginMenu(usr_id)
@@ -98,6 +99,16 @@ def Login():
     Login()
 
 ###########################################################################################################################
+
+def isValidDate(msg):
+    date = input(msg)
+    try:
+        datetime.datetime.strptime(date, '%d-%m-%Y')
+        return date
+    except ValueError:
+        #raise ValueError()
+        isValidDate("Incorrect data format, should be DD-MM-YYYY: ")
+
 
 def isValidEmail(msg):
     email = input(msg)
@@ -149,30 +160,42 @@ def Rgstr():
 
 ###########################################################################################################################
 
+def CreateProject(usr_id):
 
-def editProject():
+    ts = time.time()
+    p_id = int(ts)
+    title = input("Enter Project title: ")
+    details = input("Enter Project details: ")
+    taregt = input("Enter Project total taregt: ")
+
+    start_date = isValidDate("Enter Project start date (date format DD-MM-YYYY like): ")
+    end_date = isValidDate("Enter Project end date (date format like DD-MM-YYYY): ")
+
+    print("You Have Created a Project Successfully!")
+    print(
+        f"Your data (id:{p_id} title {title} details:{details} taregt:{taregt} start date:{start_date} end date:{end_date} usr_id: {usr_id})")
+
+    fileobject = open("data/db_projects.txt", "a")
+    fileobject.writelines(str(p_id) + ":" + title + ":" + details + ":" + taregt + ":" + str(start_date) + ":" + str(end_date) + ":" + str(usr_id))
+    fileobject.close()
+
+def getProjects():
+
     pass
-
-
-def SearchProject():
-    pass
-
 
 def delProject():
     pass
 
 
-def getProjects():
+def editProject():
+    pass
+
+def SearchProject():
     pass
 
 
-def isValidDate():
-    pass
 
 
-def CreateProject():
-
-    pass
 
 
 
