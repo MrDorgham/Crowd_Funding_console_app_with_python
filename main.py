@@ -15,9 +15,9 @@ def Main_Menu():
     print ('$$----------------------------------------$$')
     print ('$$    Welcome to the Crowd Funding App    $$')
     print ('$$----------------------------------------$$')
-    print ('$$    Press 1 to Registeration            $$')
-    print ('$$    Press 2 to Login !                  $$')
-    print ('$$    Press 0 to Exit                     $$')
+    print ('$$    Enter 1 to Registeration process    $$')
+    print ('$$    Enter 2 to Login                    $$')
+    print ('$$    Enter 3 to Exit                     $$')
     print ('$$                                        $$')
     print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     while True:
@@ -30,7 +30,7 @@ def Main_Menu():
             elif user_input == 2:
                 Login()
                 Main_Menu()
-            elif user_input == 0:
+            elif user_input == 3:
                 print("Exit Now ........ !")
                 exit()
             else:
@@ -44,13 +44,12 @@ def loginMenu(usr_id):
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     print(f'$$ Welcome {mail} , You are now logged in   $$')
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-    print('$$   Press 1 to View All projects            $$')
-    print('$$   Press 2 to Create New Project           $$')
-    print('$$   Press 3 to Delete a Project             $$')
-    print('$$   Press 4 to Search for a Project by date $$')
-    print('$$   Press 5 to Edit a Project               $$')
-    print('$$   Press 6 to go to the Main Menu          $$')
-    print('$$   Press 0 to Exit                         $$')
+    print('$$   Enter 1 to View Projects                $$')
+    print('$$   Enter 2 to Create Project               $$')
+    print('$$   Enter 3 to Delete an existing Project   $$')
+    print('$$   Enter 4 to Edit a Project               $$')
+    print('$$   Enter 5 Back to the Main Menu           $$')
+    print('$$   Enter 6 to Exit                         $$')
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     while True:
         user_input = input('Enter Your selection: ')
@@ -66,14 +65,11 @@ def loginMenu(usr_id):
                 delProject(usr_id)
                 loginMenu(usr_id)
             elif user_input == 4:
-                SearchProject()
-                loginMenu(usr_id)
-            elif user_input == 5:
                 editProject(usr_id)
                 loginMenu(usr_id)
-            elif user_input == 6:
+            elif user_input == 5:
                 Main_Menu()
-            elif user_input == 0:
+            elif user_input == 6:
                 print("Exit Now ........ !")
                 exit()
             else:
@@ -112,7 +108,6 @@ def isValidDate(msg):
         datetime.datetime.strptime(date, '%d-%m-%Y')
         return date
     except ValueError:
-        #raise ValueError()
         isValidDate("Incorrect data format, should be DD-MM-YYYY: ")
 
 
@@ -252,15 +247,6 @@ def editProject(usr_id):
     file.close()
     if flag == False:
         print("Not Found !")
-
-
-def SearchProject():
-    pass
-
-
-
-
-
 
 
 
