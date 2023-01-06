@@ -29,5 +29,3 @@ over US$34 billion was raised worldwide by crowdfunding. (From Wikipedia)
 - User can edit his own projects.
 - User can delete his own project.
 - User can search for a project using date.
-
-![alt text](https://i.ibb.co/hDspWPx/image.png)
